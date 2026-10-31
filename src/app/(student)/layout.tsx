@@ -1,15 +1,18 @@
 'use client';
 
 import { Suspense, useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import StudentNav from '@/components/StudentNav';
-import { Brain, LogOut, User, Menu, X, Sparkles } from 'lucide-react';
+import TeacherNav from '@/components/TeacherNav';
+import { Brain, LogOut, User, Menu, X, Shield } from 'lucide-react';
 import { createBrowserClient } from '@supabase/ssr';
 
 function StudentLayoutInner({ children }: { children: React.ReactNode }) {
   const router = useRouter();
+  const pathname = usePathname();
   const [userName, setUserName] = useState('Student');
   const [userEmail, setUserEmail] = useState('');
+  const [isTeacherUser, setIsTeacherUser] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const supabase = createBrowserClient(
@@ -23,27 +26,28 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
         router.push('/login');
         return;
       }
-      // If a teacher logs in, immediately redirect to teacher intelligence center
-      if (user.email?.toLowerCase().includes('teacher') || user.user_metadata?.role === 'teacher') {
+
+      const isTeacher =
+        user.email?.toLowerCase().includes('teacher') ||
+        user.user_metadata?.role === 'teacher';
+
+      setIsTeacherUser(Boolean(isTeacher));
+
+      // If a teacher accidentally accesses the student root dashboard, send to teacher dashboard
+      if (isTeacher && pathname === '/dashboard') {
         window.location.href = '/teacher/dashboard';
         return;
       }
 
-      setUserEmail(user.email ?? 'student@agenticiq.demo');
+      setUserEmail(user.email ?? (isTeacher ? 'teacher@agenticiq.demo' : 'student@agenticiq.demo'));
+
       if (user.user_metadata?.full_name) {
         setUserName(user.user_metadata.full_name);
       } else {
-        supabase
-          .from('profiles')
-          .select('full_name')
-          .eq('id', user.id)
-          .single()
-          .then(({ data }) => {
-            if (data?.full_name) setUserName(data.full_name);
-          });
+        setUserName(isTeacher ? 'Dr. Evelyn Reed' : 'Alex Chen');
       }
     });
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
+  }, [pathname, router]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleLogout = async () => {
     try {
@@ -65,11 +69,13 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       <div className="md:hidden flex items-center justify-between px-5 py-4 border-b border-border-color bg-white sticky top-0 z-40">
         <div className="flex items-center gap-2.5">
           <div className="w-8 h-8 rounded-lg bg-electric-indigo/10 text-electric-indigo flex items-center justify-center">
-            <Brain className="w-4 h-4" />
+            {isTeacherUser ? <Shield className="w-4 h-4 text-electric-indigo" /> : <Brain className="w-4 h-4" />}
           </div>
           <div>
             <span className="font-extrabold text-sm text-deep-ink">Agentic IQ</span>
-            <span className="text-[10px] text-text-muted block">Learning Studio</span>
+            <span className="text-[10px] text-text-muted block">
+              {isTeacherUser ? 'Teacher Audit View' : 'Learning Studio'}
+            </span>
           </div>
         </div>
         <button
@@ -84,7 +90,11 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
       {mobileMenuOpen && (
         <div className="md:hidden fixed inset-0 top-16 bg-white z-50 p-6 flex flex-col justify-between overflow-y-auto">
           <Suspense fallback={<div className="text-xs text-text-muted">Loading navigation...</div>}>
-            <StudentNav onItemClick={() => setMobileMenuOpen(false)} />
+            {isTeacherUser ? (
+              <TeacherNav onItemClick={() => setMobileMenuOpen(false)} />
+            ) : (
+              <StudentNav onItemClick={() => setMobileMenuOpen(false)} />
+            )}
           </Suspense>
 
           <div className="border-t border-border-color pt-4 mt-6">
@@ -105,31 +115,31 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
           {/* Studio Brand */}
           <div className="flex items-center gap-3 px-1">
             <div className="w-10 h-10 rounded-2xl bg-electric-indigo/10 border border-electric-indigo/20 text-electric-indigo flex items-center justify-center shadow-2xs">
-              <Brain className="w-5 h-5" />
+              {isTeacherUser ? <Shield className="w-5 h-5 text-electric-indigo" /> : <Brain className="w-5 h-5" />}
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-black text-base text-deep-ink tracking-tight">Agentic IQ</span>
-                <span className="studio-pill bg-electric-indigo/10 text-electric-indigo border border-electric-indigo/20 text-[8px] py-0 px-1.5">
-                  Studio
+                <span className="font-black text-base text-deep-ink tracking-tight font-editorial">Agentic IQ</span>
+                <span className="studio-pill bg-electric-indigo/10 text-electric-indigo border border-electric-indigo/20 text-[8px] py-0 px-1.5 font-bold">
+                  {isTeacherUser ? 'Faculty Audit' : 'Studio'}
                 </span>
               </div>
               <span className="block text-[10px] text-text-muted font-medium">
-                The Learning Intelligence Studio
+                {isTeacherUser ? 'Curriculum Inspection Mode' : 'The Learning Intelligence Studio'}
               </span>
             </div>
           </div>
 
           <div className="px-1">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-soft-neutral/70 border border-border-color text-[11px] font-medium text-text-muted">
+            <div className="flex items-center justify-between px-3 py-1.5 rounded-lg bg-soft-neutral/70 border border-border-color text-[11px] font-medium text-text-muted">
+              <span>{isTeacherUser ? 'Cohort 2026 Audit' : 'Groq AI Engine'}</span>
               <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-              <span>Groq AI Engine Online</span>
             </div>
           </div>
 
-          {/* Navigation Links */}
+          {/* Navigation Links: Render TeacherNav for teachers auditing curriculum, else StudentNav */}
           <Suspense fallback={<div className="text-xs text-text-muted px-3">Loading...</div>}>
-            <StudentNav />
+            {isTeacherUser ? <TeacherNav /> : <StudentNav />}
           </Suspense>
         </div>
 
@@ -137,12 +147,12 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
         <div className="border-t border-border-color pt-4">
           <div className="flex items-center justify-between p-2.5 rounded-2xl bg-soft-neutral/70 border border-border-color">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-full bg-electric-indigo/10 text-electric-indigo flex items-center justify-center text-xs font-bold shrink-0">
+              <div className="w-8 h-8 rounded-full bg-electric-indigo/10 text-electric-indigo border border-electric-indigo/20 flex items-center justify-center text-xs font-bold shrink-0">
                 <User className="w-4 h-4" />
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-deep-ink truncate">{userName}</p>
-                <p className="text-[10px] text-text-muted truncate">{userEmail || 'Student'}</p>
+                <p className="text-[10px] text-text-muted truncate font-mono">{userEmail}</p>
               </div>
             </div>
             <button
@@ -165,5 +175,9 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
 }
 
 export default function StudentLayout({ children }: { children: React.ReactNode }) {
-  return <StudentLayoutInner>{children}</StudentLayoutInner>;
+  return (
+    <Suspense fallback={<div className="min-h-screen bg-warm-ivory flex items-center justify-center text-xs text-text-muted">Loading learning studio...</div>}>
+      <StudentLayoutInner>{children}</StudentLayoutInner>
+    </Suspense>
+  );
 }
