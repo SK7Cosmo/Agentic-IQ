@@ -223,23 +223,23 @@ export default function StudentsPage() {
         </div>
 
         {/* Roster Table */}
-        <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+        <div className="overflow-x-auto -mx-2 sm:mx-0">
+          <table className="w-full min-w-[880px] text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-border-color text-text-muted font-bold uppercase tracking-wider text-[10px]">
-                <th className="pb-3 pl-2">Learner</th>
-                <th className="pb-3">Cognitive Status</th>
-                <th className="pb-3">Mastery</th>
-                <th className="pb-3">Learning Atlas Progress</th>
-                <th className="pb-3">Active Misconceptions</th>
-                <th className="pb-3">Last Active</th>
-                <th className="pb-3 text-right pr-2">Action</th>
+                <th className="py-3 px-4 text-left pl-4">Learner</th>
+                <th className="py-3 px-4 text-left">Cognitive Status</th>
+                <th className="py-3 px-4 text-left">Mastery</th>
+                <th className="py-3 px-4 text-left">Learning Atlas</th>
+                <th className="py-3 px-4 text-left">Misconceptions</th>
+                <th className="py-3 px-4 text-left">Last Active</th>
+                <th className="py-3 px-4 text-right pr-4">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-color">
               {filteredStudents.length === 0 ? (
                 <tr>
-                  <td colSpan={7} className="py-10 text-center text-text-muted text-xs">
+                  <td colSpan={7} className="py-12 text-center text-text-muted text-xs">
                     No learners match the selected filter criteria.
                   </td>
                 </tr>
@@ -252,19 +252,19 @@ export default function StudentsPage() {
 
                   return (
                     <tr key={student.id} className="hover:bg-soft-neutral/30 transition-colors">
-                      <td className="py-4 pl-2">
+                      <td className="py-4 px-4 pl-4 whitespace-nowrap">
                         <div className="flex items-center gap-3">
                           <div className="w-9 h-9 rounded-xl bg-electric-indigo/10 border border-electric-indigo/20 text-electric-indigo font-bold flex items-center justify-center shrink-0 text-xs">
                             {initials}
                           </div>
                           <div>
                             <div className="font-bold text-deep-ink text-xs">{student.name}</div>
-                            <div className="text-[10px] text-text-muted">{student.email}</div>
+                            <div className="text-[10px] text-text-muted font-mono">{student.email}</div>
                           </div>
                         </div>
                       </td>
 
-                      <td className="py-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <span
                           className={`studio-pill text-[9px] font-bold ${
                             student.status === 'Advanced'
@@ -279,7 +279,7 @@ export default function StudentsPage() {
                         <div className="text-[10px] text-text-muted mt-0.5">{student.archetype}</div>
                       </td>
 
-                      <td className="py-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <div className="space-y-1.5 w-28">
                           <div className="flex items-center justify-between text-[11px] font-mono font-bold text-deep-ink">
                             <span>{student.mastery}%</span>
@@ -299,14 +299,14 @@ export default function StudentsPage() {
                         </div>
                       </td>
 
-                      <td className="py-4 text-text-muted">
+                      <td className="py-4 px-4 whitespace-nowrap text-text-muted">
                         <div className="font-semibold text-deep-ink text-xs">
                           {student.conceptsCompleted} / {student.totalConcepts} concepts
                         </div>
                         <div className="text-[10px] text-text-muted">Across 6 stages</div>
                       </td>
 
-                      <td className="py-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         {student.misconceptions > 0 ? (
                           <span className="inline-flex items-center gap-1.5 text-coral font-bold text-xs">
                             <AlertTriangle className="w-3.5 h-3.5" />
@@ -320,14 +320,14 @@ export default function StudentsPage() {
                         )}
                       </td>
 
-                      <td className="py-4">
+                      <td className="py-4 px-4 whitespace-nowrap">
                         <span className="inline-flex items-center gap-1.5 text-text-muted text-xs">
                           <Clock className="w-3.5 h-3.5 text-text-muted" />
                           <span>{student.lastActive}</span>
                         </span>
                       </td>
 
-                      <td className="py-4 text-right pr-2">
+                      <td className="py-4 px-4 pr-4 text-right whitespace-nowrap">
                         <Link
                           href={`/teacher/students/${student.id}`}
                           className="px-3.5 py-1.5 rounded-xl bg-soft-neutral hover:bg-neutral-200 text-deep-ink font-bold text-xs transition-all inline-flex items-center gap-1 border border-border-color shadow-2xs"

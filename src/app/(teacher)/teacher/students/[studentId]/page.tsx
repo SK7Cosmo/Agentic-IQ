@@ -127,6 +127,105 @@ const studentProfiles: Record<string, StudentProfile> = {
       { type: 'lesson', description: 'Studied: Prompt Injection Defenses & Reader Models', date: '4 days ago' },
     ],
   },
+  'student-4': {
+    name: 'Morgan Chen',
+    email: 'morgan@agenticiq.demo',
+    mastery: 77,
+    status: 'On Track',
+    archetype: 'Deliberate Builder',
+    lastActive: '5 hours ago',
+    conceptsCompleted: 15,
+    totalConcepts: 24,
+    cognitivePillars: [
+      { name: 'Conceptual Foundations', score: 85 },
+      { name: 'Implementation Fluency', score: 79 },
+      { name: 'Failure & Self-Correction', score: 72 },
+      { name: 'Trade-off Analysis', score: 74 },
+      { name: 'Tool & Schema Design', score: 75 },
+    ],
+    misconceptions: [
+      {
+        concept: 'Multi-Agent Handoffs',
+        statement: 'Subagents share a single global memory heap automatically without needing state transition checkpoints.',
+        severity: 'Medium',
+      },
+    ],
+    recentActivity: [
+      { type: 'assessment', description: 'Reasoning Lab: Orchestration Handoff Failure Modes', date: '5 hours ago', score: 79 },
+      { type: 'lesson', description: 'Studied: Hierarchical Multi-Agent Coordination', date: '1 day ago' },
+    ],
+  },
+  'student-5': {
+    name: 'Riley Park',
+    email: 'riley@agenticiq.demo',
+    mastery: 91,
+    status: 'Advanced',
+    archetype: 'Systems Architect',
+    lastActive: '30 mins ago',
+    conceptsCompleted: 22,
+    totalConcepts: 24,
+    cognitivePillars: [
+      { name: 'Conceptual Foundations', score: 96 },
+      { name: 'Implementation Fluency', score: 94 },
+      { name: 'Failure & Self-Correction', score: 88 },
+      { name: 'Trade-off Analysis', score: 89 },
+      { name: 'Tool & Schema Design', score: 88 },
+    ],
+    misconceptions: [],
+    recentActivity: [
+      { type: 'assessment', description: 'Voice Diagnostic: Production MicroVM Sandboxing', date: '30 mins ago', score: 96 },
+      { type: 'lesson', description: 'Mastered: Evaluation Harnesses & LLM-as-a-Judge', date: '1 day ago' },
+      { type: 'drill', description: 'Cognitive Flash Drill: KV-Cache Bound Saturation', date: '2 days ago', score: 100 },
+    ],
+  },
+  'student-6': {
+    name: 'Casey Thompson',
+    email: 'casey@agenticiq.demo',
+    mastery: 39,
+    status: 'Needs Support',
+    archetype: 'Needs Intervention',
+    lastActive: '1 week ago',
+    conceptsCompleted: 5,
+    totalConcepts: 24,
+    cognitivePillars: [
+      { name: 'Conceptual Foundations', score: 48 },
+      { name: 'Implementation Fluency', score: 35 },
+      { name: 'Failure & Self-Correction', score: 32 },
+      { name: 'Trade-off Analysis', score: 40 },
+      { name: 'Tool & Schema Design', score: 40 },
+    ],
+    misconceptions: [
+      {
+        concept: 'Self-Attention Matrices',
+        statement: 'Attention weights are static pre-computed weights identical to dense feedforward neural layer weights.',
+        severity: 'High',
+      },
+      {
+        concept: 'Token Boundaries',
+        statement: 'Special character byte-pair encodings do not count toward context window limits.',
+        severity: 'High',
+      },
+      {
+        concept: 'Prompt Injection',
+        statement: 'System prompts are permanently immutable and cannot be overridden by untrusted user data without explicit instructions.',
+        severity: 'High',
+      },
+      {
+        concept: 'KV-Cache Eviction',
+        statement: 'Sliding window attention preserves absolute semantic fidelity indefinitely.',
+        severity: 'Medium',
+      },
+      {
+        concept: 'Hallucination Mitigation',
+        statement: 'Setting temperature to zero guarantees zero model hallucinations regardless of context availability.',
+        severity: 'Medium',
+      },
+    ],
+    recentActivity: [
+      { type: 'assessment', description: 'Voice Diagnostic: Tokens & Byte-Pair Encoding', date: '1 week ago', score: 38 },
+      { type: 'lesson', description: 'Studied: Attention Mechanism & Scaled Dot Products', date: '2 weeks ago' },
+    ],
+  },
 };
 
 function StudentDetail({ params }: { params: Promise<{ studentId: string }> }) {

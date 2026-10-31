@@ -5,10 +5,6 @@ import { usePathname } from 'next/navigation';
 import {
   Users,
   LayoutDashboard,
-  Shield,
-  Layers,
-  Compass,
-  Sparkles
 } from 'lucide-react';
 
 interface TeacherNavProps {
@@ -23,14 +19,7 @@ export default function TeacherNav({ onItemClick }: TeacherNavProps) {
       heading: 'Instructor Intelligence',
       items: [
         { label: 'Class Analytics', href: '/teacher/dashboard', icon: LayoutDashboard, tag: 'Live' },
-        { label: 'Student Directory', href: '/teacher/students', icon: Users, tag: '24 Learners' },
-      ],
-    },
-    {
-      heading: 'Curriculum Inspection',
-      items: [
-        { label: 'Learning Atlas (Audit)', href: '/curriculum/module-1', icon: Layers, tag: '6 Stages' },
-        { label: 'Constellation Graph', href: '/roadmap', icon: Compass, tag: 'Map' },
+        { label: 'Student Directory', href: '/teacher/students', icon: Users, tag: '6 Learners' },
       ],
     },
   ];

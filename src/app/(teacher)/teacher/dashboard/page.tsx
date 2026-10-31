@@ -17,18 +17,20 @@ import {
 } from 'lucide-react';
 
 export default function TeacherDashboard() {
-  const classStats = {
-    totalStudents: 24,
-    averageMastery: 71,
-    activeMisconceptionsCount: 3,
-  };
-
   const students = [
     { id: 'student-1', name: 'Alex Rivera', email: 'student@agenticiq.demo', mastery: 68, status: 'On Track', struggles: 'Agent execution loops' },
-    { id: 'student-2', name: 'Jordan Lee', email: 'jordan@agenticiq.demo', mastery: 84, status: 'Advanced', struggles: 'None' },
+    { id: 'student-2', name: 'Jordan Lee', email: 'jordan@agenticiq.demo', mastery: 84, status: 'Advanced', struggles: 'None · Multi-agent ready' },
     { id: 'student-3', name: 'Taylor Smith', email: 'taylor@agenticiq.demo', mastery: 52, status: 'Needs Support', struggles: 'Tool calling vs RAG' },
     { id: 'student-4', name: 'Morgan Chen', email: 'morgan@agenticiq.demo', mastery: 77, status: 'On Track', struggles: 'Multi-agent handoffs' },
+    { id: 'student-5', name: 'Riley Park', email: 'riley@agenticiq.demo', mastery: 91, status: 'Advanced', struggles: 'None · Fully calibrated' },
+    { id: 'student-6', name: 'Casey Thompson', email: 'casey@agenticiq.demo', mastery: 39, status: 'Needs Support', struggles: 'Self-attention matrices' },
   ];
+
+  const classStats = {
+    totalStudents: students.length,
+    averageMastery: Math.round(students.reduce((a, s) => a + s.mastery, 0) / students.length),
+    activeMisconceptionsCount: 3,
+  };
 
   const commonMisconceptions = [
     {
@@ -76,7 +78,7 @@ export default function TeacherDashboard() {
             className="px-4 py-2.5 rounded-xl bg-deep-ink hover:bg-charcoal text-white text-xs font-bold transition-all shadow-xs flex items-center gap-2"
           >
             <Users className="w-4 h-4" />
-            <span>View All 24 Learners</span>
+            <span>View All 6 Learners</span>
           </Link>
         </div>
       </div>
@@ -174,26 +176,26 @@ export default function TeacherDashboard() {
         </div>
 
         <div className="overflow-x-auto">
-          <table className="w-full text-left text-xs">
+          <table className="w-full min-w-[700px] text-left text-xs border-collapse">
             <thead>
               <tr className="border-b border-border-color text-text-muted font-bold uppercase tracking-wider text-[10px]">
-                <th className="pb-3 pl-2">Learner</th>
-                <th className="pb-3">Status</th>
-                <th className="pb-3">Mastery</th>
-                <th className="pb-3">Attention Area</th>
-                <th className="pb-3 text-right pr-2">Action</th>
+                <th className="py-3 px-3 text-left">Learner</th>
+                <th className="py-3 px-3 text-left">Status</th>
+                <th className="py-3 px-3 text-left">Mastery</th>
+                <th className="py-3 px-3 text-left">Attention Area</th>
+                <th className="py-3 px-3 text-right">Action</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-border-color">
               {students.map((student) => (
                 <tr key={student.id} className="hover:bg-soft-neutral/30 transition-colors">
-                  <td className="py-3.5 pl-2 font-bold text-deep-ink">
+                  <td className="py-3.5 px-3 font-bold text-deep-ink whitespace-nowrap">
                     <div>{student.name}</div>
-                    <div className="text-[10px] text-text-muted font-normal">{student.email}</div>
+                    <div className="text-[10px] text-text-muted font-normal font-mono">{student.email}</div>
                   </td>
-                  <td className="py-3.5">
+                  <td className="py-3.5 px-3 whitespace-nowrap">
                     <span
-                      className={`studio-pill text-[9px] ${
+                      className={`studio-pill text-[9px] font-bold ${
                         student.status === 'Advanced'
                           ? 'bg-emerald-500/10 text-emerald-700 border border-emerald-500/20'
                           : student.status === 'Needs Support'
@@ -204,14 +206,15 @@ export default function TeacherDashboard() {
                       {student.status}
                     </span>
                   </td>
-                  <td className="py-3.5 font-mono font-bold text-deep-ink">{student.mastery}%</td>
-                  <td className="py-3.5 text-text-muted">{student.struggles}</td>
-                  <td className="py-3.5 text-right pr-2">
+                  <td className="py-3.5 px-3 font-mono font-bold text-deep-ink whitespace-nowrap">{student.mastery}%</td>
+                  <td className="py-3.5 px-3 text-text-muted text-xs">{student.struggles}</td>
+                  <td className="py-3.5 px-3 text-right whitespace-nowrap">
                     <Link
                       href={`/teacher/students/${student.id}`}
-                      className="px-3 py-1.5 rounded-lg bg-soft-neutral hover:bg-neutral-200 text-deep-ink font-bold text-[11px] transition-all"
+                      className="px-3 py-1.5 rounded-xl bg-soft-neutral hover:bg-neutral-200 text-deep-ink font-bold text-xs transition-all inline-flex items-center gap-1 border border-border-color shadow-2xs"
                     >
-                      Audit →
+                      <span>Audit</span>
+                      <ArrowRight className="w-3 h-3 text-electric-indigo" />
                     </Link>
                   </td>
                 </tr>
