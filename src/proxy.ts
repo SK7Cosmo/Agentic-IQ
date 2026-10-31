@@ -44,16 +44,26 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  const isTeacher = user?.email?.toLowerCase().includes('teacher') || user?.user_metadata?.role === 'teacher';
+
   // Redirect authenticated users away from login
   if (user && pathname === '/login') {
-    const { data: profile } = await supabase
-      .from('profiles')
-      .select('role')
-      .eq('id', user.id)
-      .single();
-
     const redirectUrl = request.nextUrl.clone();
-    redirectUrl.pathname = profile?.role === 'teacher' ? '/teacher/dashboard' : '/dashboard';
+    redirectUrl.pathname = isTeacher ? '/teacher/dashboard' : '/dashboard';
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  // Route protection: prevent teachers from landing on the student dashboard
+  if (user && isTeacher && pathname === '/dashboard') {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/teacher/dashboard';
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  // Route protection: prevent students from accessing teacher intelligence center
+  if (user && !isTeacher && pathname.startsWith('/teacher')) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = '/dashboard';
     return NextResponse.redirect(redirectUrl);
   }
 

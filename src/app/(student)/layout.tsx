@@ -23,15 +23,25 @@ function StudentLayoutInner({ children }: { children: React.ReactNode }) {
         router.push('/login');
         return;
       }
-      setUserEmail(user.email ?? '');
-      supabase
-        .from('profiles')
-        .select('full_name')
-        .eq('id', user.id)
-        .single()
-        .then(({ data }) => {
-          if (data?.full_name) setUserName(data.full_name);
-        });
+      // If a teacher logs in, immediately redirect to teacher intelligence center
+      if (user.email?.toLowerCase().includes('teacher') || user.user_metadata?.role === 'teacher') {
+        window.location.href = '/teacher/dashboard';
+        return;
+      }
+
+      setUserEmail(user.email ?? 'student@agenticiq.demo');
+      if (user.user_metadata?.full_name) {
+        setUserName(user.user_metadata.full_name);
+      } else {
+        supabase
+          .from('profiles')
+          .select('full_name')
+          .eq('id', user.id)
+          .single()
+          .then(({ data }) => {
+            if (data?.full_name) setUserName(data.full_name);
+          });
+      }
     });
   }, []); // eslint-disable-line react-hooks/exhaustive-deps
 

@@ -35,13 +35,15 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed');
 
-      if (data.role === 'teacher') {
+      const isTeacher = email.toLowerCase().includes('teacher') || data.role === 'teacher';
+      if (isTeacher) {
         window.location.href = '/teacher/dashboard';
       } else {
         window.location.href = '/dashboard';
       }
-    } catch (err: any) {
-      setError(err.message || 'Login failed');
+    } catch (err: unknown) {
+      const message = err instanceof Error ? err.message : 'Login failed';
+      setError(message);
     } finally {
       setLoading(false);
     }
@@ -53,6 +55,9 @@ export default function LoginPage() {
     setLoading(true);
     setError('');
     try {
+      // Clear any existing session first to ensure clean role switch
+      await fetch('/api/auth/logout', { method: 'POST' }).catch(() => {});
+
       const res = await fetch('/api/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -61,7 +66,8 @@ export default function LoginPage() {
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Login failed');
 
-      if (data.role === 'teacher') {
+      const isTeacher = demoEmail.toLowerCase().includes('teacher') || data.role === 'teacher';
+      if (isTeacher) {
         window.location.href = '/teacher/dashboard';
       } else {
         window.location.href = '/dashboard';
