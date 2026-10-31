@@ -1,0 +1,24 @@
+flowchart TD
+    A["Learner submits response\n(text or voice-dictated)"] --> B["POST /api/assessment/evaluate"]
+    B --> C["Groq AI evaluates reasoning\n(score, confidence, misconceptions)"]
+    C --> D{Validate structured output}
+    D -- "Invalid JSON / schema error" --> E["Retry with stricter prompt\n(attempt 2)"]
+    E --> D
+    D -- "Still invalid" --> F["Return 'uncertain' status\nDo NOT update mastery"]
+    D -- "Valid" --> G{confidence < 0.5?}
+    G -- "Yes" --> H["Retry with higher-precision prompt"]
+    H --> I{Retry confidence OK?}
+    I -- "No" --> F
+    I -- "Yes" --> J["Use retried result"]
+    G -- "No" --> J
+    J --> K{evaluationStatus?}
+    K -- "skipped / uncertain" --> L["Skip mastery update\nNo penalty applied"]
+    K -- "completed" --> M["POST /api/mastery/update"]
+    M --> N["Apply weighted formula:\nprev × (1 - weight×conf)\n+ new × weight×conf"]
+    N --> O["Upsert learner_mastery\n(score, level)"]
+    O --> P{score < 60?}
+    P -- "Yes" --> Q["Schedule revision\n(spaced repetition)"]
+    P -- "No" --> R["Display feedback\nMisconceptions\nMastery update\nNext recommendation"]
+    Q --> R
+    L --> R
+    F --> R

@@ -1,0 +1,19 @@
+flowchart TD
+    A["GET /api/recommendations"] --> B["Fetch learner mastery\n(all concepts)"]
+    B --> C["Fetch all concepts\n(with module + order)"]
+    C --> D["For each concept:"]
+    D --> E{Concept assessed?}
+    E -- "No" --> F["type: new\npriority: 3\nReason: Start fresh"]
+    E -- "Yes" --> G{mastery score}
+    G -- "< 30" --> H["type: revisit\npriority: 5\nReason: Foundational gaps"]
+    G -- "30–59" --> I["type: practice\npriority: 4\nReason: Needs reinforcement"]
+    G -- "60–79" --> J["Skip — proficient\n(no action needed)"]
+    G -- "≥ 80" --> K["type: fast-track\npriority: 1\nReason: Strong mastery"]
+    F --> L["Collect all recommendations"]
+    H --> L
+    I --> L
+    K --> L
+    J --> L
+    L --> M["Sort by priority descending"]
+    M --> N["Return top 5 recommendations"]
+    N --> O["Student Dashboard\ndisplays recommended next activity"]

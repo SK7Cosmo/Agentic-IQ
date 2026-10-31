@@ -1,0 +1,125 @@
+erDiagram
+    profiles {
+        uuid id PK
+        text email
+        text full_name
+        enum role
+        text avatar_url
+        timestamptz created_at
+    }
+
+    modules {
+        uuid id PK
+        text title
+        text description
+        int order_index
+        text icon
+        timestamptz created_at
+    }
+
+    concepts {
+        uuid id PK
+        uuid module_id FK
+        text title
+        text description
+        int order_index
+        jsonb prerequisites
+        text slug
+        timestamptz created_at
+    }
+
+    lessons {
+        uuid id PK
+        uuid concept_id FK
+        text title
+        text content
+        int reading_time_mins
+        int order_index
+        timestamptz created_at
+    }
+
+    questions {
+        uuid id PK
+        uuid concept_id FK
+        enum type
+        text prompt
+        jsonb options
+        text correct_answer
+        text explanation
+        timestamptz created_at
+    }
+
+    learner_mastery {
+        uuid id PK
+        uuid user_id FK
+        uuid concept_id FK
+        int score
+        text level
+        timestamptz last_assessed_at
+        timestamptz created_at
+    }
+
+    assessment_results {
+        uuid id PK
+        uuid user_id FK
+        text concept_title
+        text question_prompt
+        text user_response
+        int score
+        jsonb evaluation
+        timestamptz assessed_at
+    }
+
+    assessment_attempts {
+        uuid id PK
+        uuid user_id FK
+        uuid concept_id FK
+        uuid question_id FK
+        text user_response
+        boolean is_correct
+        int score
+        jsonb ai_evaluation
+        jsonb misconceptions
+        text status
+        timestamptz created_at
+    }
+
+    revision_schedule {
+        uuid id PK
+        uuid user_id FK
+        uuid concept_id FK
+        timestamptz due_date
+        int interval_days
+        text status
+        timestamptz created_at
+    }
+
+    classes {
+        uuid id PK
+        uuid teacher_id FK
+        text name
+        text description
+        timestamptz created_at
+    }
+
+    class_members {
+        uuid id PK
+        uuid class_id FK
+        uuid student_id FK
+        timestamptz joined_at
+    }
+
+    profiles ||--o{ learner_mastery : "has"
+    profiles ||--o{ assessment_results : "submits"
+    profiles ||--o{ assessment_attempts : "attempts"
+    profiles ||--o{ revision_schedule : "schedules"
+    profiles ||--o{ classes : "teaches"
+    profiles ||--o{ class_members : "enrolled in"
+    modules ||--o{ concepts : "contains"
+    concepts ||--o{ lessons : "has"
+    concepts ||--o{ questions : "has"
+    concepts ||--o{ learner_mastery : "tracked by"
+    concepts ||--o{ assessment_attempts : "assessed through"
+    concepts ||--o{ revision_schedule : "scheduled for"
+    classes ||--o{ class_members : "has"
+    questions ||--o{ assessment_attempts : "used in"

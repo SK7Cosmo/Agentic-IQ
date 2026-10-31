@@ -1,0 +1,45 @@
+graph TB
+    Student["👨‍🎓 Student / Teacher<br/>(Browser)"]
+    
+    subgraph NextJS["Next.js Application (Vercel)"]
+        MW["Middleware<br/>(Auth + Route Protection)"]
+        UI["React UI Components<br/>(App Router Pages)"]
+        
+        subgraph API["Route Handlers (Server-Side)"]
+            AuthAPI["/api/auth/login|logout"]
+            EvalAPI["/api/assessment/evaluate"]
+            SubmitAPI["/api/assessment/submit"]
+            MasteryAPI["/api/mastery/update"]
+            RecsAPI["/api/recommendations"]
+            TutorAPI["/api/tutor/chat"]
+        end
+        
+        subgraph Services["Services Layer"]
+            GroqSvc["AI Service<br/>(groq.ts)"]
+            MasteryEngine["Mastery Engine<br/>(Weighted Logic)"]
+        end
+    end
+    
+    subgraph Supabase["Supabase (Hosted)"]
+        SupaAuth["Supabase Auth"]
+        PostgreSQL["PostgreSQL + RLS"]
+    end
+    
+    GroqAPI["Groq API<br/>gpt-oss-120b"]
+    
+    Student --> MW
+    MW --> UI
+    UI --> API
+    AuthAPI --> SupaAuth
+    EvalAPI --> GroqSvc
+    SubmitAPI --> PostgreSQL
+    MasteryAPI --> MasteryEngine
+    MasteryAPI --> PostgreSQL
+    RecsAPI --> PostgreSQL
+    TutorAPI --> GroqSvc
+    GroqSvc --> GroqAPI
+    SupaAuth --> PostgreSQL
+
+    style NextJS fill:#f0f0ff,stroke:#6366f1
+    style Supabase fill:#f0fff0,stroke:#22c55e
+    style GroqAPI fill:#fff0f0,stroke:#f43f5e
