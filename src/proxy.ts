@@ -53,6 +53,13 @@ export async function proxy(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // Redirect root / directly to /login or user dashboard
+  if (pathname === '/') {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = user ? (isTeacher ? '/teacher/dashboard' : '/dashboard') : '/login';
+    return NextResponse.redirect(redirectUrl);
+  }
+
   // Route protection: prevent teachers from landing on the student dashboard
   if (user && isTeacher && pathname === '/dashboard') {
     const redirectUrl = request.nextUrl.clone();
