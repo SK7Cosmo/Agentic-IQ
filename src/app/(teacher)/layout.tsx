@@ -103,25 +103,26 @@ function TeacherLayoutInner({ children }: { children: React.ReactNode }) {
       <aside className="hidden md:flex w-68 border-r border-border-color bg-white flex-col justify-between p-5 shrink-0 min-h-screen sticky top-0">
         <div className="space-y-6">
           <div className="flex items-center gap-3 px-1">
-            <div className="w-10 h-10 rounded-2xl bg-deep-ink text-white flex items-center justify-center shadow-xs">
-              <Shield className="w-5 h-5 text-amber-400" />
+            <div className="w-10 h-10 rounded-2xl bg-electric-indigo/10 border border-electric-indigo/20 text-electric-indigo flex items-center justify-center shadow-xs">
+              <Brain className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-black text-base text-deep-ink tracking-tight">Agentic IQ</span>
-                <span className="studio-pill bg-soft-neutral text-deep-ink border border-border-color text-[8px] py-0 px-1.5">
+                <span className="font-black text-base text-deep-ink tracking-tight font-editorial">Agentic IQ</span>
+                <span className="studio-pill bg-deep-ink text-white text-[8px] py-0 px-1.5 font-bold">
                   Teacher
                 </span>
               </div>
               <span className="block text-[10px] text-text-muted font-medium">
-                Classroom Intelligence
+                Faculty Studio
               </span>
             </div>
           </div>
 
           <div className="px-1">
-            <div className="p-2.5 rounded-xl bg-soft-neutral/70 border border-border-color text-[11px] font-semibold text-charcoal">
-              Cohort 2026 · Agentic AI
+            <div className="p-2.5 rounded-xl bg-soft-neutral/70 border border-border-color text-[11px] font-semibold text-deep-ink flex items-center justify-between">
+              <span>Cohort 2026 · Agentic AI</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
             </div>
           </div>
 
@@ -134,12 +135,12 @@ function TeacherLayoutInner({ children }: { children: React.ReactNode }) {
         <div className="border-t border-border-color pt-4">
           <div className="flex items-center justify-between p-2.5 rounded-2xl bg-soft-neutral/70 border border-border-color">
             <div className="flex items-center gap-2.5 overflow-hidden">
-              <div className="w-8 h-8 rounded-full bg-deep-ink text-white flex items-center justify-center text-xs font-bold shrink-0">
+              <div className="w-8 h-8 rounded-full bg-electric-indigo/10 text-electric-indigo border border-electric-indigo/20 flex items-center justify-center text-xs font-bold shrink-0">
                 <User className="w-4 h-4" />
               </div>
               <div className="truncate">
                 <p className="text-xs font-bold text-deep-ink truncate">{userName}</p>
-                <p className="text-[10px] text-text-muted truncate">{userEmail || 'Instructor'}</p>
+                <p className="text-[10px] text-text-muted truncate font-mono">{userEmail || 'teacher@agenticiq.demo'}</p>
               </div>
             </div>
             <button

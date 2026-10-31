@@ -62,7 +62,7 @@ export default function TeacherDashboard() {
             </span>
             <span className="text-xs font-mono font-bold text-text-muted">COHORT 2026 · AGENTIC AI</span>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black text-deep-ink tracking-tight mt-1">
+          <h1 className="text-3xl md:text-4xl font-black text-deep-ink tracking-tight font-editorial mt-1">
             Classroom Intelligence Center
           </h1>
           <p className="text-xs text-text-muted mt-1">
