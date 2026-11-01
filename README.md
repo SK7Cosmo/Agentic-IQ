@@ -2,359 +2,232 @@
 
 **Learn. Reason. Master Agentic AI.**
 
-An adaptive, voice-first learning platform that teaches Agentic AI concepts through structured lessons, reasoning-based assessments, intelligent misconception detection, and personalized learning recommendations.
+> The Socratic Learning Intelligence Studio designed to take engineers from LLM fundamentals to production-grade autonomous multi-agent systems through voice-first reasoning, active misconception diagnosis, and 5-pillar cognitive calibration.
+
+🌐 **Live Application:** [https://agentic-iq-beta.vercel.app](https://agentic-iq-beta.vercel.app)  
+📦 **Repository:** [https://github.com/SK7Cosmo/Agent-IQ](https://github.com/SK7Cosmo/Agent-IQ)
 
 ---
 
 ## Table of Contents
 
 1. [Overview](#overview)
-2. [Problem Statement](#problem-statement)
-3. [Solution](#solution)
-4. [Core Differentiators](#core-differentiators)
-5. [Features](#features)
+2. [The Core Problem](#the-core-problem)
+3. [The Solution: Socratic Cognitive Calibration](#the-solution-socratic-cognitive-calibration)
+4. [Studio Features](#studio-features)
+   - [Student Learning Studio](#student-learning-studio)
+   - [Instructor Intelligence Center](#instructor-intelligence-center)
+5. [6-Stage Learning Atlas](#6-stage-learning-atlas)
 6. [Technology Stack](#technology-stack)
-7. [Architecture](#architecture)
-8. [Database Schema](#database-schema)
-9. [Local Setup](#local-setup)
-10. [Environment Variables](#environment-variables)
-11. [Supabase Setup](#supabase-setup)
-12. [Groq API Setup](#groq-api-setup)
-13. [Demo Accounts](#demo-accounts)
-14. [Demo Workflow](#demo-workflow)
-15. [Vercel Deployment](#vercel-deployment)
-16. [Known Limitations](#known-limitations)
+7. [System Architecture](#system-architecture)
+8. [1-Click Demo Accounts](#1-click-demo-accounts)
+9. [5-Minute Demo Walkthrough](#5-minute-demo-walkthrough)
+10. [Local Development Setup](#local-development-setup)
+11. [Environment Variables](#environment-variables)
+12. [Vercel Deployment](#vercel-deployment)
+13. [License](#license)
 
 ---
 
 ## Overview
 
-Agentic IQ is a hackathon MVP learning platform purpose-built for teaching Agentic AI concepts. It goes beyond conventional quiz-based learning by using AI to evaluate conceptual reasoning, detect misconceptions in learner explanations, and adapt the learning path based on demonstrated understanding.
+Traditional learning platforms measure whether engineers can recognize the correct option in a multiple-choice quiz. But designing and debugging **production Agentic AI systems** requires architectural intuition, failure mode anticipation, trade-off reasoning, and execution-loop discipline.
+
+**Agentic IQ** bridges the gap between passive consumption and architectural mastery. Learners explain systems concepts orally or in text, and our **Groq-powered LPU reasoning engine** probes their arguments, extracts flawed mental models, updates a calibrated **5-pillar cognitive fingerprint**, and dynamically adapts their curriculum.
 
 ---
 
-## Problem Statement
+## The Core Problem
 
-Conventional learning platforms measure whether learners select the correct answer — they do not evaluate whether learners actually understand the concept. A student can score 80% on a quiz while holding fundamental misconceptions that would cause them to fail when applying the knowledge in practice.
-
----
-
-## Solution
-
-Agentic IQ evaluates **reasoning quality**, not just answer correctness.
-
-1. Learners explain concepts in their own words (via text or voice dictation).
-2. Groq AI evaluates conceptual depth, identifies missing elements, and detects misconceptions.
-3. The backend updates mastery using weighted logic — reasoning assessments count 70%, MCQ 30%.
-4. The system recommends the next appropriate learning activity.
+* **Superficial Knowledge Illusion**: Engineers memorize buzzwords (ReAct, LangGraph, Multi-Agent Swarms, RAG) and pass static quizzes with 80%+ scores while harboring critical misconceptions that fail in production.
+* **Passive Consumption**: Reading documentation does not train developers to catch subtle agent execution bugs like non-terminating tool loops, KV-cache context saturation, or prompt injection egress.
+* **Faculty Blindspots**: Instructors have no visibility into the class-wide mental models of their cohort until students fail their capstones or production deployments.
 
 ---
 
-## Core Differentiators
+## The Solution: Socratic Cognitive Calibration
 
-| Differentiator | Description |
-|---|---|
-| **Voice-First Learning** | Explain understanding using speech dictation or text. Compatible with OS dictation, Wispr Flow, and browser dictation. |
-| **Intelligent Assessment** | Groq AI evaluates conceptual reasoning — not just multiple-choice correctness. |
-| **Adaptive Learning** | Tracks concept-level mastery independently. Detects misconceptions and recommends appropriate next activities. |
+Agentic IQ evaluates **reasoning depth**, not superficial keyword recognition:
+
+1. **Oral / Written Explanation**: Learners articulate system trade-offs using browser-native **Web Speech API** dictation or text.
+2. **AI Socratic Evaluation**: Groq LPU inference (`llama-3.3-70b-versatile`) evaluates conceptual coherence, identifies missing edge-cases, and isolates specific misconceptions.
+3. **5-Pillar Calibration**: Mastery is updated using a weighted Bayesian formula: 70% oral reasoning weight + 30% diagnostic check weight.
+4. **Targeted Adaptation**: The platform surfaces instant spoken audio feedback and schedules spaced repetition drills for flagged misconceptions.
 
 ---
 
-## Features
+## Studio Features
 
-### Student Experience
-- **Dashboard** — Learning progress, active misconceptions, mastery fingerprint
-- **Curriculum** — 6 modules, 36 concepts covering the full Agentic AI landscape
-- **Diagnostic Assessment** — 2-step: MCQ + voice-first reasoning question
-- **Reasoning Studio** — Submit explanations for Groq AI evaluation
-- **Misconception Detection** — Identifies incorrect mental models with clear corrections
-- **Mastery Tracking** — Per-concept scoring (0–100) with four levels: Beginner → Developing → Proficient → Mastered
-- **AI Tutor** — Contextual chat assistant powered by Groq
-- **Learning Roadmap** — Visual curriculum progress view
-- **Revision Center** — Spaced repetition for identified misconceptions
+### Student Learning Studio
+* **Cognitive Command Center (`/dashboard`)**: Live view of current mastery calibration, active misconception alerts, cognitive archetypes (*e.g., Deliberate Builder, Systems Architect*), and prioritized next-action recommendations.
+* **Learning Atlas (`/curriculum/[moduleId]`)**: 6 interactive stages containing 24 comprehensive concepts. Each lesson provides real-world engineering analogies, architecture breakdowns, production code, key takeaways, and **Web Speech API audio narration**.
+* **Concept Constellation (`/roadmap`)**: Interactive SVG topological dependency graph modeling prerequisites, mastery status (*Mastered, Proficient, Developing, Beginner*), and interactive concept inspection drawers.
+* **Voice Reasoning Studio (`/assessment/diagnostic`)**: Voice-first oral reasoning evaluations where learners debate and justify system architectures to AI evaluators.
+* **Socratic AI Tutor (`/tutor`)**: Conversational AI mentor designed to guide learners with Socratic questions rather than revealing direct answers.
+* **Spaced Revision Center (`/revisions`)**: Spaced repetition drills that resurface identified misconceptions before they solidify.
 
-### Teacher Experience
-- **Classroom Dashboard** — Class-wide mastery, common misconceptions, students needing support
-- **Student Roster** — Individual mastery, activity, and intervention signals
-- **Student Detail View** — Per-student concept mastery breakdown
+### Instructor Intelligence Center
+* **Class Analytics & Misconception Radar (`/teacher/dashboard`)**: High-level cohort metrics (average class mastery: 69%), active misconception count, and the **Class-Wide Misconception Radar** tracking flawed mental models across student submissions with 1-click broadcast studio drill capabilities.
+* **Student Intelligence Directory (`/teacher/students`)**: Unified 6-learner cohort table with real-time text search, cognitive status filter tabs (*Advanced, On Track, Needs Support*), and non-overlapping horizontal scroll-safe layout.
+* **Learner Cognitive Audit (`/teacher/students/[studentId]`)**: Granular audit view for each learner featuring:
+  - **5-Pillar Mastery Fingerprint**:
+    1. *Conceptual Foundations*
+    2. *Implementation Fluency*
+    3. *Failure & Self-Correction*
+    4. *Trade-off Analysis*
+    5. *Tool & Schema Design*
+  - Diagnosed misconception cards with severity tags (*High, Medium, Low*).
+  - Chronological reasoning trajectory history.
 
-### AI & Backend
-- **Groq Integration** — Server-side only, uses `openai/gpt-oss-120b`
-- **Structured Evaluation** — AI returns validated JSON; backend validates before processing
-- **Confidence Checking** — Low-confidence evaluations are retried or marked uncertain
-- **Mastery Update Engine** — Backend owns mastery calculation; AI provides evidence only
-- **Adaptive Recommendations API** — Generates prioritized learning recommendations
+---
+
+## 6-Stage Learning Atlas
+
+The curriculum covers 24 in-depth architectural concepts across 6 progressive stages:
+
+| Stage | Focus Area | Concepts Covered |
+| :---: | :--- | :--- |
+| **01** | **LLM Foundations** | Tokens & Embeddings, Context Windows & KV-Cache, Attention Mechanism, Hallucinations & Grounding |
+| **02** | **Agent Fundamentals** | The ReAct Loop, Structured Tool Calling, Planning & Goal Decomposition, Halting Criteria & Budgeting |
+| **03** | **Agent Architecture** | Short & Long-Term Memory, Cyclical State Graphs, Reflection & Metacognition, Self-Correction & Recovery |
+| **04** | **Agent Orchestration** | Supervisor & Hierarchical Agents, Multi-Agent Swarms, Broadcast & Consensus Protocols, Task Hand-off & Context Routing |
+| **05** | **Production Agents** | Human-in-the-Loop Safeguards, Sandboxing & Tool Security, Observability & Tracing, Reliability & Retry Fallbacks |
+| **06** | **Evaluation & Benchmarks** | LLM-as-a-Judge Evaluation, Benchmarks & Agentic Evals, Red-Teaming & Prompt Injections, Continuous Cognitive Profiling |
 
 ---
 
 ## Technology Stack
 
-| Layer | Technology |
-|---|---|
-| Frontend | Next.js 16 (App Router), React 19, TypeScript |
-| Styling | Tailwind CSS v4 |
-| Icons | Lucide React |
-| Charts | Recharts |
-| Backend | Next.js Route Handlers, Server Actions |
-| Database | Supabase PostgreSQL with RLS |
-| Auth | Supabase Auth |
-| AI Provider | Groq API (`openai/gpt-oss-120b`) |
-| Deployment Target | Vercel (not yet deployed) |
+| Layer | Technology | Details |
+| :--- | :--- | :--- |
+| **Framework** | **Next.js 16** (App Router) | Turbopack engine, Partial Prefetching (PPR), Edge Proxy Middleware |
+| **Language** | **TypeScript** | Strict type-safety across all routes, models, and components |
+| **Styling** | **Tailwind CSS v4** | Custom warm-ivory editorial design system (`bg-warm-ivory`, `electric-indigo`) |
+| **AI Inference** | **Groq LPU Cloud** | `llama-3.3-70b-versatile` / `gpt-oss-120b` for sub-3s Socratic evaluation |
+| **Voice & Audio** | **Web Speech API** | Client-side native SpeechRecognition (dictation) & SpeechSynthesis (narration) |
+| **Auth & Database** | **Supabase** | Supabase SSR Auth with role-based `user_metadata`, PostgreSQL + RLS |
+| **Icons** | **Lucide React** | Clean studio iconography |
+| **Deployment** | **Vercel** | Edge network deployment with automated GitHub CI/CD pipeline |
 
 ---
 
-## Architecture
+## System Architecture
+
+For in-depth architectural specifications, see [docs/architecture/ARCHITECTURE.md](docs/architecture/ARCHITECTURE.md).
 
 ```
 ┌─────────────────────────────────────────────────────────────┐
-│                     Next.js App (Vercel)                    │
+│                     Next.js 16 (Vercel)                     │
 │                                                             │
-│  ┌─────────────┐   ┌──────────────────────────────────────┐ │
-│  │   Student   │   │          Route Handlers              │ │
-│  │   Teacher   │──▶│  /api/assessment/evaluate            │ │
-│  │   Browser   │   │  /api/mastery/update                 │ │
-│  └─────────────┘   │  /api/recommendations                │ │
-│                    │  /api/tutor/chat                      │ │
-│                    │  /api/auth/login|logout               │ │
-│                    └────────────┬─────────────────────────┘ │
-│                                 │                           │
-│             ┌───────────────────┼──────────────────┐        │
-│             │                   │                  │        │
-│      ┌──────▼──────┐   ┌────────▼───────┐   ┌─────▼──────┐ │
-│      │  Supabase   │   │  Groq API      │   │  Mastery   │ │
-│      │  PostgreSQL │   │  gpt-oss-120b  │   │  Engine    │ │
-│      │  + Auth     │   │  (Server-side) │   │  (Backend) │ │
-│      │  + RLS      │   └────────────────┘   └────────────┘ │
-│      └─────────────┘                                        │
+│  ┌─────────────────────────┐   ┌──────────────────────────┐ │
+│  │   Student Learning      │   │   Proxy Middleware       │ │
+│  │   & Teacher Portals     │──▶│   (src/proxy.ts)         │ │
+│  └─────────────────────────┘   └────────────┬─────────────┘ │
+│                                             │               │
+│               ┌─────────────────────────────┼────────┐      │
+│               │                             │        │      │
+│        ┌──────▼──────┐               ┌──────▼──────┐ │      │
+│        │ Supabase    │               │ Groq AI API │ │      │
+│        │ Auth + SSR  │               │ Llama 3.3   │ │      │
+│        │ PostgreSQL  │               │ 70B Engine  │ │      │
+│        └─────────────┘               └─────────────┘ │      │
 └─────────────────────────────────────────────────────────────┘
 ```
 
-### Assessment Flow
+---
 
-```
-Learner submits response
-        │
-        ▼
-POST /api/assessment/evaluate
-        │
-        ▼
-Groq AI evaluates reasoning
-        │
-        ▼
-Validate structured output (score, confidence, misconceptions)
-        │
-   confidence < 0.5?
-   ┌────┴────┐
-  YES       NO
-   │         │
-Retry       Continue
-   │         │
-   └────┬────┘
-        │
-   evaluationStatus = uncertain?
-   ┌────┴────┐
-  YES       NO
-   │         │
-  Skip       POST /api/mastery/update
-  mastery    (backend applies weighted formula)
-   │         │
-   └────┬────┘
-        │
-        ▼
-Display feedback + misconceptions
-Display mastery update
-Show recommended next activity
-```
+## 1-Click Demo Accounts
 
-### Adaptive Learning Flow
+The live login page at [https://agentic-iq-beta.vercel.app/login](https://agentic-iq-beta.vercel.app/login) includes **1-Click Demo Access buttons** for immediate evaluation:
 
-```
-GET /api/recommendations
-        │
-        ▼
-Fetch all concepts + learner mastery
-        │
-        ▼
-For each concept:
-  score = 0        → type: "new"       priority: 3
-  score < 30       → type: "revisit"   priority: 5
-  30 ≤ score < 60  → type: "practice"  priority: 4
-  score ≥ 80       → type: "fast-track" priority: 1
-        │
-        ▼
-Sort by priority → return top 5
-```
+| Role | Name | Email | Password | Landing Page |
+| :--- | :--- | :--- | :--- | :--- |
+| **Student** | Alex Chen | `student@agenticiq.demo` | `AgenticIQ_Student2026!` | `/dashboard` |
+| **Teacher** | Dr. Evelyn Reed | `teacher@agenticiq.demo` | `AgenticIQ_Teacher2026!` | `/teacher/dashboard` |
 
 ---
 
-## Database Schema
+## 5-Minute Demo Walkthrough
 
-```
-profiles          (id, email, full_name, role, avatar_url)
-modules           (id, title, description, order_index, icon)
-concepts          (id, module_id, title, description, order_index, prerequisites, slug)
-lessons           (id, concept_id, title, content, reading_time_mins, order_index)
-questions         (id, concept_id, type, prompt, options, correct_answer, explanation)
-learner_mastery   (id, user_id, concept_id, score, level, last_assessed_at)
-assessment_results (id, user_id, concept_title, question_prompt, user_response, score, evaluation)
-assessment_attempts (id, user_id, concept_id, question_id, user_response, score, ai_evaluation, status)
-revision_schedule (id, user_id, concept_id, due_date, interval_days, status)
-classes           (id, teacher_id, name, description)
-class_members     (id, class_id, student_id)
-```
-
-All tables use Row Level Security (RLS). Students can only access their own data. Teachers can view data for students in their class.
+1. **Open the Login Portal**  
+   Navigate to [https://agentic-iq-beta.vercel.app](https://agentic-iq-beta.vercel.app). Unauthenticated visitors are automatically routed to the Login & Demo selection screen.
+2. **Enter the Student Learning Studio**  
+   Click **"Student Demo"** (1-click login as Alex Chen).
+3. **Explore the Command Center**  
+   Review the active mastery trajectory, diagnosed cognitive archetype, and active misconception alert.
+4. **Inspect the Learning Atlas**  
+   Click **"Learning Atlas"** in the sidebar. Switch between Stage 01 (*LLM Foundations*) through Stage 06 (*Evaluation & Benchmarks*). Click any concept (*e.g., Tokens & Embeddings*) to review analogy breakdowns and test the Web Speech audio narration.
+5. **Explore the Concept Constellation**  
+   Click **"Concept Constellation"** in the sidebar to interact with the SVG topological knowledge graph and inspect prerequisite dependencies.
+6. **Launch Voice Reasoning Studio**  
+   Navigate to **Reasoning Studio** (`/assessment/diagnostic`). Complete the conceptual probe, then click **"Simulate Voice Input"** (or use your microphone) to submit an architectural explanation and watch Groq AI evaluate reasoning depth in real time.
+7. **Switch to Instructor Intelligence Center**  
+   Click **Sign Out** and click **"Teacher Demo"** (1-click login as Dr. Evelyn Reed).
+8. **Audit Cohort Analytics**  
+   Review the enrolled 6-learner cohort, class average mastery (69%), and examine the **Misconception Radar**.
+9. **Inspect the Student Directory**  
+   Click **"Student Directory"** to test real-time search and status filters across all 6 learners.
+10. **Run a Learner Cognitive Audit**  
+    Click **"Audit"** next to *Alex Rivera* or *Casey Thompson* to inspect their 5-pillar mastery fingerprints and diagnosed misconception history.
 
 ---
 
-## Local Setup
+## Local Development Setup
 
 ### Prerequisites
-
-- Node.js 20+ (`node --version`)
-- A Supabase project (hosted — no local PostgreSQL needed)
-- A Groq API account
+- Node.js 20+ (`node -v`)
+- npm or pnpm
+- Supabase project
+- Groq API key
 
 ### Steps
 
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-org/agentic-iq.git
-cd agentic-iq
+git clone https://github.com/SK7Cosmo/Agent-IQ.git
+cd Agent-IQ
 
 # 2. Install dependencies
 npm install
 
 # 3. Configure environment variables
 cp .env.example .env.local
-# Edit .env.local with your Supabase and Groq credentials
+# Add your Supabase URL, publishable key, service role key, and Groq API key
 
-# 4. Set up database schema
-# Run supabase/migrations/001_initial_schema.sql in Supabase SQL Editor
-# Run supabase/migrations/002_assessment_results.sql in Supabase SQL Editor
-
-# 5. Seed curriculum data
-# Run supabase/seed.sql in Supabase SQL Editor
-# Run supabase/seed_concepts.sql in Supabase SQL Editor
-
-# 6. Provision demo accounts
+# 4. Provision demo accounts
 node scripts/setup-demo-accounts.mjs
 
-# 7. Start development server
+# 5. Start the Next.js development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000)
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ---
 
 ## Environment Variables
 
 | Variable | Description | Required |
-|---|---|---|
-| `NEXT_PUBLIC_SUPABASE_URL` | Your Supabase project URL | ✅ |
+| :--- | :--- | :---: |
+| `NEXT_PUBLIC_SUPABASE_URL` | Supabase project URL | ✅ |
 | `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY` | Supabase publishable (anon) key | ✅ |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase service role key (server-side only) | ✅ |
-| `GROQ_API_KEY` | Your Groq API key | ✅ |
-| `GROQ_MODEL` | Model ID (default: `openai/gpt-oss-120b`) | Optional |
-| `GROQ_BASE_URL` | Groq API base URL | Optional |
-
-> **Security**: `SUPABASE_SERVICE_ROLE_KEY` and `GROQ_API_KEY` are used only in server-side Route Handlers. They are never exposed to the browser.
-
----
-
-## Supabase Setup
-
-1. Create a project at [supabase.com](https://supabase.com)
-2. Go to **Settings → API** and copy:
-   - Project URL → `NEXT_PUBLIC_SUPABASE_URL`
-   - Publishable (anon) key → `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
-   - Service role key → `SUPABASE_SERVICE_ROLE_KEY`
-3. Open the **SQL Editor** and run migrations in order:
-   - `supabase/migrations/001_initial_schema.sql`
-   - `supabase/migrations/002_assessment_results.sql`
-4. Run seed data:
-   - `supabase/seed.sql`
-   - `supabase/seed_concepts.sql`
-5. Provision demo accounts:
-   ```bash
-   node scripts/setup-demo-accounts.mjs
-   ```
-
----
-
-## Groq API Setup
-
-1. Create an account at [console.groq.com](https://console.groq.com)
-2. Generate an API key under **API Keys**
-3. Add to `.env.local`:
-   ```
-   GROQ_API_KEY=gsk_XXXXXXXXXXXXXXXXXXXXXXXXXXXX
-   GROQ_MODEL=openai/gpt-oss-120b
-   GROQ_BASE_URL=https://api.groq.com/openai/v1
-   ```
-
-> **Note**: The Groq free tier has rate limits. The demo is designed to use minimal API requests. Static curriculum content is stored in the database and not regenerated on each request.
-
----
-
-## Demo Accounts
-
-| Role | Email | Password |
-|---|---|---|
-| Student | `student@agenticiq.demo` | `AgenticIQ_Student2026!` |
-| Teacher | 0`teacher@agenticiq.demo` | `AgenticIQ_Teacher2026!` |
-
-> These are demo-only credentials. Run `node scripts/setup-demo-accounts.mjs` to create them.
-> The login page provides **1-click demo access** buttons for evaluators.
-
----
-
-## Demo Workflow
-
-A complete 3–5 minute demonstration path:
-
-1. **Open** [http://localhost:3000/login](http://localhost:3000/login)
-2. **Click "Student Demo"** — 1-click auto-login as Alex Rivera
-3. **Dashboard** — See mastery fingerprint, active misconception, and recommended activity
-4. **Click "Start Recommended Activity"** — Opens the diagnostic assessment
-5. **Step 1: MCQ** — Select the correct answer distinguishing LLM from AI Agent
-6. **Step 2: Reasoning** — Click **"Simulate Voice Input"** to load the demo misconception text
-7. **Submit** — Watch Groq AI evaluate the response (live API call, ~3 seconds)
-8. **Feedback panel** — See the detected misconception, correct mental model, and mastery update
-9. **Return to Dashboard** — Observe updated mastery
-10. **Open Teacher Demo** — Click logout, then "Teacher Demo" 1-click login
-11. **Teacher Dashboard** — Class-wide mastery, common misconceptions, student roster
+| `GROQ_API_KEY` | Groq API key for LPU reasoning inference | ✅ |
+| `GROQ_MODEL` | Default model (e.g. `llama-3.3-70b-versatile` or `openai/gpt-oss-120b`) | Optional |
+| `GROQ_BASE_URL` | Groq endpoint (default: `https://api.groq.com/openai/v1`) | Optional |
 
 ---
 
 ## Vercel Deployment
 
-**Deployment is not yet configured** — preparation is complete.
+The application is deployed to production on Vercel with automated continuous deployment on pushes to `main`:
 
-When ready:
-1. Push to GitHub
-2. Import project in [vercel.com/new](https://vercel.com/new)
-3. Add all environment variables from `.env.example`
-4. Deploy
-
-The `vercel.json` uses standard Next.js framework integration. No rewrites or custom configuration are needed.
-
----
-
-## Known Limitations
-
-| Limitation | Notes |
-|---|---|
-| Static curriculum content | Lesson content is hardcoded in page components. Not yet seeded per-concept in the database. |
-| Demo mastery data | Student dashboard shows pre-seeded data; live mastery updates reflect actual assessments. |
-| Groq rate limits | Free tier limits apply. Demo uses 1–2 AI calls per session. |
-| No email confirmation bypass | Demo accounts are created with `email_confirm: true` via admin API. |
-| Concept graph | Roadmap is implemented as a linear list. React Flow interactive graph is planned. |
-| No file upload | Voice input uses text area with OS/external dictation support; no audio transcription API. |
+* **Live URL:** [https://agentic-iq-beta.vercel.app](https://agentic-iq-beta.vercel.app)
+* **Build Command:** `next build` (Next.js 16 Turbopack)
+* **Proxy Configuration:** Managed via `src/proxy.ts`
 
 ---
 
 ## License
 
-MIT — Built for the Agentic AI Hackathon 2026.
+MIT License — Built for the Agentic AI Hackathon 2026.

@@ -1,24 +1,34 @@
 flowchart TD
-    A["Learner submits response\n(text or voice-dictated)"] --> B["POST /api/assessment/evaluate"]
-    B --> C["Groq AI evaluates reasoning\n(score, confidence, misconceptions)"]
-    C --> D{Validate structured output}
-    D -- "Invalid JSON / schema error" --> E["Retry with stricter prompt\n(attempt 2)"]
-    E --> D
-    D -- "Still invalid" --> F["Return 'uncertain' status\nDo NOT update mastery"]
-    D -- "Valid" --> G{confidence < 0.5?}
-    G -- "Yes" --> H["Retry with higher-precision prompt"]
-    H --> I{Retry confidence OK?}
-    I -- "No" --> F
-    I -- "Yes" --> J["Use retried result"]
-    G -- "No" --> J
-    J --> K{evaluationStatus?}
-    K -- "skipped / uncertain" --> L["Skip mastery update\nNo penalty applied"]
-    K -- "completed" --> M["POST /api/mastery/update"]
-    M --> N["Apply weighted formula:\nprev × (1 - weight×conf)\n+ new × weight×conf"]
-    N --> O["Upsert learner_mastery\n(score, level)"]
-    O --> P{score < 60?}
-    P -- "Yes" --> Q["Schedule revision\n(spaced repetition)"]
-    P -- "No" --> R["Display feedback\nMisconceptions\nMastery update\nNext recommendation"]
-    Q --> R
-    L --> R
-    F --> R
+    A["Learner opens Reasoning Studio\n(/assessment/diagnostic)"] --> B["Step 1: Conceptual Probe\n(Multiple Choice Diagnostic)"]
+    B --> C["Step 2: Voice-First Socratic Reasoning\n(Speech Recognition or Simulated Voice)"]
+    C --> D["Learner submits oral/written rationale"]
+    
+    D --> E["POST /api/assessment/evaluate"]
+    E --> F["Groq AI LPU Inference\n(Llama 3.3 70B / gpt-oss-120b)"]
+    F --> G{"Validate JSON Schema\n(score, confidence, misconceptions)"}
+    
+    G -- "Malformed output" --> H["Retry with stricter prompt constraints\n(Attempt 2)"]
+    H --> G
+    G -- "Failed retry" --> I["Flag evaluationStatus: uncertain\nBypass penalty, no mastery change"]
+    
+    G -- "Valid schema" --> J{"Confidence Check\n(confidence < 0.50?)"}
+    J -- "Low confidence" --> K["Run higher-precision disambiguation prompt"]
+    K --> L{"Confidence resolved?"}
+    L -- "No" --> I
+    L -- "Yes" --> M["Finalize Evaluation Object"]
+    J -- "High confidence" --> M
+    
+    M --> N{"evaluationStatus?"}
+    N -- "uncertain / skipped" --> I
+    N -- "completed" --> O["POST /api/mastery/update"]
+    
+    O --> P["Mastery Calibration Engine\nWeighted: 70% Reasoning + 30% MCQ\nScore = prev × (1 - w·c) + new × (w·c)"]
+    P --> Q["Update 5-Pillar Mastery Profile\n& Concept Calibration Score (0-100)"]
+    
+    Q --> R{"Mastery < 60% or Misconception?"}
+    R -- "Yes" --> S["Queue into Spaced Revision Engine\n& Cohort Misconception Radar"]
+    R -- "No" --> T["Unlock Downstream Concepts\nin Constellation Graph"]
+    
+    S --> U["Studio Feedback Screen\n• Web Speech Audio Feedback\n• Correct Mental Model Extraction\n• Next Socratic Action Recommendation"]
+    T --> U
+    I --> U

@@ -1,45 +1,72 @@
 graph TB
-    Student["👨‍🎓 Student / Teacher<br/>(Browser)"]
-    
-    subgraph NextJS["Next.js Application (Vercel)"]
-        MW["Middleware<br/>(Auth + Route Protection)"]
-        UI["React UI Components<br/>(App Router Pages)"]
-        
+    subgraph Clients["Client Experience (Browser)"]
+        Student["👨‍🎓 Student Learning Studio<br/>• Command Center<br/>• Learning Atlas (6 Stages)<br/>• Concept Constellation Graph<br/>• Voice Reasoning Studio<br/>• Socratic AI Tutor"]
+        Teacher["👩‍🏫 Instructor Intelligence Center<br/>• Class Analytics & Radar<br/>• 6-Learner Roster<br/>• Cognitive Fingerprint Audit"]
+        WebSpeech["🎙️ Web Speech API<br/>(Speech Recognition & Synthesis)"]
+    end
+
+    subgraph Edge["Vercel Edge & Middleware"]
+        Proxy["Proxy Middleware<br/>(src/proxy.ts)<br/>• Role Route Protection<br/>• Root Auto-Forwarding (/login)<br/>• Supabase SSR Token Refresh"]
+    end
+
+    subgraph NextJS["Next.js 16 App Router (Turbopack)"]
+        subgraph Pages["Studio Pages"]
+            StudentPages["(student)/*<br/>/dashboard · /curriculum/[id]<br/>/roadmap · /assessment/diagnostic"]
+            TeacherPages["(teacher)/*<br/>/teacher/dashboard<br/>/teacher/students<br/>/teacher/students/[id]"]
+            AuthPages["(auth)/*<br/>/login (1-Click Demo)"]
+        end
+
         subgraph API["Route Handlers (Server-Side)"]
-            AuthAPI["/api/auth/login|logout"]
+            AuthAPI["/api/auth/login | /logout"]
             EvalAPI["/api/assessment/evaluate"]
             SubmitAPI["/api/assessment/submit"]
             MasteryAPI["/api/mastery/update"]
             RecsAPI["/api/recommendations"]
             TutorAPI["/api/tutor/chat"]
         end
-        
-        subgraph Services["Services Layer"]
-            GroqSvc["AI Service<br/>(groq.ts)"]
-            MasteryEngine["Mastery Engine<br/>(Weighted Logic)"]
+
+        subgraph Services["Core Intelligence Engines"]
+            GroqSvc["Groq AI Service<br/>(Llama 3.3 70B / gpt-oss-120b)"]
+            MasteryEngine["Cognitive Mastery Engine<br/>(70% Reasoning / 30% MCQ)"]
+            RadarEngine["Cohort Misconception Radar"]
         end
     end
-    
-    subgraph Supabase["Supabase (Hosted)"]
-        SupaAuth["Supabase Auth"]
-        PostgreSQL["PostgreSQL + RLS"]
+
+    subgraph Supabase["Supabase Cloud"]
+        SupaAuth["Supabase Auth (SSR)<br/>Role Metadata (student / teacher)"]
+        PostgreSQL["PostgreSQL Database<br/>RLS Security Policies"]
     end
-    
-    GroqAPI["Groq API<br/>gpt-oss-120b"]
-    
-    Student --> MW
-    MW --> UI
-    UI --> API
+
+    subgraph AI["Groq LPU Inference Cloud"]
+        GroqAPI["Groq API<br/>llama-3.3-70b-versatile<br/>gpt-oss-120b"]
+    end
+
+    Student --> Proxy
+    Teacher --> Proxy
+    Student <--> WebSpeech
+    Proxy --> StudentPages
+    Proxy --> TeacherPages
+    Proxy --> AuthPages
+
+    StudentPages --> API
+    TeacherPages --> API
+    AuthPages --> AuthAPI
+
     AuthAPI --> SupaAuth
     EvalAPI --> GroqSvc
-    SubmitAPI --> PostgreSQL
-    MasteryAPI --> MasteryEngine
-    MasteryAPI --> PostgreSQL
-    RecsAPI --> PostgreSQL
     TutorAPI --> GroqSvc
     GroqSvc --> GroqAPI
-    SupaAuth --> PostgreSQL
 
-    style NextJS fill:#f0f0ff,stroke:#6366f1
-    style Supabase fill:#f0fff0,stroke:#22c55e
-    style GroqAPI fill:#fff0f0,stroke:#f43f5e
+    EvalAPI --> MasteryEngine
+    MasteryAPI --> MasteryEngine
+    MasteryEngine --> PostgreSQL
+    SubmitAPI --> PostgreSQL
+    RecsAPI --> PostgreSQL
+
+    TeacherPages --> RadarEngine
+    RadarEngine --> PostgreSQL
+
+    style NextJS fill:#f8f9fc,stroke:#6366f1,stroke-width:2px
+    style Supabase fill:#f0fdf4,stroke:#16a34a,stroke-width:2px
+    style AI fill:#fef2f2,stroke:#ef4444,stroke-width:2px
+    style Clients fill:#fdfbf7,stroke:#ca8a04,stroke-width:2px
