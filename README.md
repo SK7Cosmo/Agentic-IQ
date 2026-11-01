@@ -4,6 +4,10 @@
 
 > The Socratic Learning Intelligence Studio designed to take engineers from LLM fundamentals to production-grade autonomous multi-agent systems through voice-first reasoning, active misconception diagnosis, and 5-pillar cognitive calibration.
 
+## 🎥 🎥 Watch the demo to see Agentic IQ in action!
+[![Walkthrough Video](public/agentic_iq_thumbnail.jpg)](https://youtu.be/ONquY2pq9xw?si=0QhmyStUkEtwBOl_)
+
+---
 🌐 **Live Application:** [https://agentic-iq-beta.vercel.app](https://agentic-iq-beta.vercel.app)  
 📦 **Repository:** [https://github.com/SK7Cosmo/Agent-IQ](https://github.com/SK7Cosmo/Agent-IQ)
 
