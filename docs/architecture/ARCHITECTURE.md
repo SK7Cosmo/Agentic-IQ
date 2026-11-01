@@ -145,3 +145,4 @@ Reasoning evaluation is managed server-side via [`/api/assessment/evaluate`](fil
 | **Database & Auth** | Supabase (PostgreSQL + RLS) | Session token management, user metadata, and persistent profiles |
 | **AI Inference** | Groq LPU API (`llama-3.3-70b-versatile`) | Sub-3-second conversational Socratic reasoning evaluations |
 | **Deployment** | Vercel Platform | Zero-config edge deployment with automated GitHub CI/CD |
+
