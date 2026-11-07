@@ -1,16 +1,16 @@
 # Agentic IQ
 
-**Learn. Reason. Master Agentic AI.**
+## **Learn. Reason. Master Agentic AI.**
 
-> The Socratic Learning Intelligence Studio designed to take engineers from LLM fundamentals to production-grade autonomous multi-agent systems through voice-first reasoning, active misconception diagnosis, and 5-pillar cognitive calibration.
+>### The Socratic Learning Intelligence Studio designed to take engineers from LLM fundamentals to production-grade autonomous multi-agent systems through voice-first reasoning, active misconception diagnosis, and 5-pillar cognitive calibration.
 
-## 🎥 🎥 Watch the demo to see Agentic IQ in action!
+> #### 📢 Please Note: This POC version focuses on demonstrating the core capabilities with select features and content included.
+
+## 🎥  Watch the demo to see Agentic IQ in action!
 [![Walkthrough Video](public/agentic_iq_thumbnail.jpg)](https://youtu.be/ONquY2pq9xw?si=0QhmyStUkEtwBOl_)
 
 ---
 🌐 **Live Application:** [https://agentic-iq-beta.vercel.app](https://agentic-iq-beta.vercel.app)  
-📦 **Repository:** [https://github.com/SK7Cosmo/Agent-IQ](https://github.com/SK7Cosmo/Agent-IQ)
-
 ---
 
 ## Table of Contents
@@ -29,8 +29,6 @@
 10. [Local Development Setup](#local-development-setup)
 11. [Environment Variables](#environment-variables)
 12. [Vercel Deployment](#vercel-deployment)
-13. [License](#license)
-
 ---
 
 ## Overview
@@ -230,8 +228,4 @@ The application is deployed to production on Vercel with automated continuous de
 * **Build Command:** `next build` (Next.js 16 Turbopack)
 * **Proxy Configuration:** Managed via `src/proxy.ts`
 
----
 
-## License
-
-MIT License — Built for the Agentic AI Hackathon 2026.
